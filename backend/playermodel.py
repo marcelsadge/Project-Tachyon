@@ -50,6 +50,7 @@ class PlayerModel(object):
         return self.cleaned_player_df
 
 if __name__ == "__main__":
-    p = PlayerModel("Bryce Harper", ["2010-09-08", "2021-09-09"])
-    #pd.display(p.get_player_df(False))
-    results.visualize_swing_results(results.query_pitch_type_swing_prob(p.get_player_df(True), ['FF', 'CU', 'SI']))
+    p = PlayerModel("Austin Riley", ["2015-09-08", "2021-09-09"])
+    results.visualize_swing_results(results.query_pitch_type_swing_prob(
+        p.get_player_df(True), ['FF']), p.get_player_df(True))
+

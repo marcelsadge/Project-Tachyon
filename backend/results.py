@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
+from matplotlib import cm
+import matplotlib.patches as pt
 import matplotlib.pyplot as plt
+import matplotlib.colors as cl
 import pybaseball as pb
 from pybaseball.playerid_lookup import playerid_lookup
 from sklearn.model_selection import train_test_split
@@ -55,11 +58,22 @@ def train_on_classifier(tup, lr = 0.9, max_depth = 20, num_leaves = 30, n_estima
     return tup
 
 
-def visualize_swing_results(tup):
+def visualize_swing_results(tup, player_df):
     df = tup[2]
     visualize_cols = df.drop('swing', axis = 1).columns
     df_test = pd.DataFrame(data = tup[0][1], columns = visualize_cols)
     probables = pd.DataFrame(data = tup[1].predict_proba(tup[0][1]), columns = ['take_prob', 'swing_prob'])
     df_test['swing_prob'] = probables['swing_prob']
-    se.scatterplot(x = df_test['plate_x'], y = df_test['plate_z'], hue = df_test['swing_prob'])
+    top_sz = player_df['sz_top'].mean()
+    bot_sz = player_df['sz_bot'].mean()
+    sz = pt.Rectangle((-0.70833, bot_sz), width = 17/12, height = (top_sz - bot_sz), fill = False)
+    _, ax = plt.subplots()
+    ax.add_patch(sz)
+    ax.axis('equal')
+    cm = cl.LinearSegmentedColormap.from_list("MyCmap", ["b","r"])
+    plt.hist2d(df_test['plate_x'], df_test['plate_z'], bins = 75, cmap = cm)
+    plt.colorbar()
+    plt.xlim(-2, 2)
+    plt.ylim(1, 4)
     plt.show()
+
