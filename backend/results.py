@@ -5,7 +5,6 @@ import matplotlib.patches as pt
 import matplotlib.pyplot as plt
 import matplotlib.colors as cl
 import pybaseball as pb
-from pybaseball.playerid_lookup import playerid_lookup
 from sklearn.model_selection import train_test_split
 import sklearn as sk
 import seaborn as se
@@ -14,7 +13,8 @@ import lightgbm as lgb
 
 import playermodel as pm
 
-def query_pitch_type_swing_prob(query_df, pitches: None) -> pd.DataFrame:
+def pitch_swing_prob(player_df, pitches: None) -> pd.DataFrame:
+    query_df = player_df.copy()
     l = []
     for i in range(len(query_df)):
         prev_pitch = None
@@ -28,6 +28,8 @@ def query_pitch_type_swing_prob(query_df, pitches: None) -> pd.DataFrame:
         'release_speed','p_throws','pfx_x','pfx_z','vx0','vy0','vz0',
         'strikes','balls', 'swing']
     query_df = query_df[model_cols]
+    query_df['balls'] = query_df['balls'].astype(int)
+    query_df['strikes'] = query_df['strikes'].astype(int)
     query_df = query_df.loc[query_df['pitch_type'].isin(pitches)]
     query_df = query_df.iloc[::-1].reset_index(drop = True)
     query_df = query_df.drop(columns = ['pitch_type', 'pitch_number'])
@@ -37,9 +39,6 @@ def query_pitch_type_swing_prob(query_df, pitches: None) -> pd.DataFrame:
     x_train, x_test, y_train, y_test = train_test_split(ind, dep, test_size = 0.2, random_state = 0)
     train_tup = x_train, x_test, y_train, y_test, model_df
     return train_on_classifier(train_tup)
-
-def query_pitch_type_pitcher(player_df, query: None) -> pd.DataFrame:
-    pass
 
 def query_release_speed_batter(player_df, query: None) -> pd.DataFrame:
     pass
@@ -58,7 +57,7 @@ def train_on_classifier(tup, lr = 0.9, max_depth = 20, num_leaves = 30, n_estima
     return tup
 
 
-def visualize_swing_results(tup, player_df):
+def visualize_swing_prob(tup, player_df):
     df = tup[2]
     visualize_cols = df.drop('swing', axis = 1).columns
     df_test = pd.DataFrame(data = tup[0][1], columns = visualize_cols)
@@ -70,10 +69,10 @@ def visualize_swing_results(tup, player_df):
     _, ax = plt.subplots()
     ax.add_patch(sz)
     ax.axis('equal')
-    cm = cl.LinearSegmentedColormap.from_list("MyCmap", ["b","r"])
-    plt.hist2d(df_test['plate_x'], df_test['plate_z'], bins = 75, cmap = cm)
+    plt.hist2d(df_test['plate_x'], df_test['plate_z'], bins = 30, cmap = 'Reds')
     plt.colorbar()
-    plt.xlim(-2, 2)
-    plt.ylim(1, 4)
+    plt.xlim(-1.5, 1.5)
+    plt.ylim(1, 3.75)
     plt.show()
+
 
