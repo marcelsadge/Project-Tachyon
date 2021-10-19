@@ -1,7 +1,7 @@
 import pandas as pd
 import pybaseball as pb
 
-import results
+import results, visualize
 
 class PlayerModel(object):
 
@@ -65,11 +65,11 @@ class PlayerModel(object):
         return self.cleaned_player_df
 
 if __name__ == "__main__":
-    #p = PlayerModel("Austin Riley", ["2015-09-08", "2021-09-09"])
-    #results.visualize_batter_swing_prob(results.pitch_batter_swing_prob(
-    #    p.get_player_df(True), ['FF']), p.get_player_df(True))
+    p = PlayerModel("Austin Riley", ["2015-09-08", "2021-09-09"], 'batter')
+    visualize.visualize_density_graph(results.pitch_swing_prob(
+        p.get_player_df(True), ['FF']), p.get_player_df(True))
 
     p = PlayerModel("Clayton Kershaw", ["2015-09-08", "2021-09-09"], 'pitcher')
-    results.visualize_swing_prob(results.pitch_swing_prob(
+    visualize.visualize_density_graph(results.pitch_swing_prob(
         p.get_player_df(True), ['CU']), p.get_player_df(True))
 
