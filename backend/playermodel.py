@@ -1,6 +1,4 @@
-import pandas as pd
 import pybaseball as pb
-
 import results, visualize
 
 class PlayerModel(object):

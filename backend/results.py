@@ -1,17 +1,7 @@
 import pandas as pd
-import numpy as np
-from matplotlib import cm
-import matplotlib.patches as pt
-import matplotlib.pyplot as plt
-import matplotlib.colors as cl
-import pybaseball as pb
-from sklearn.model_selection import train_test_split
 import sklearn as sk
-import seaborn as se
-
 import lightgbm as lgb
-
-import playermodel as pm
+from sklearn.model_selection import train_test_split
 
 def pitch_swing_prob(player_df, pitches: None) -> pd.DataFrame:
     query_df = player_df.copy()
@@ -55,24 +45,3 @@ def train_on_classifier(tup, lr = 0.9, max_depth = 20, num_leaves = 30, n_estima
     accuracy = sk.metrics.accuracy_score(prediction, y_test)
     tup = ((x_train, x_test, y_train, y_test), lgbm, df, prediction, accuracy)
     return tup
-
-
-def visualize_swing_prob(tup, player_df):
-    df = tup[2]
-    visualize_cols = df.drop('swing', axis = 1).columns
-    df_test = pd.DataFrame(data = tup[0][1], columns = visualize_cols)
-    probables = pd.DataFrame(data = tup[1].predict_proba(tup[0][1]), columns = ['take_prob', 'swing_prob'])
-    df_test['swing_prob'] = probables['swing_prob']
-    top_sz = player_df['sz_top'].mean()
-    bot_sz = player_df['sz_bot'].mean()
-    sz = pt.Rectangle((-0.70833, bot_sz), width = 17/12, height = (top_sz - bot_sz), fill = False)
-    _, ax = plt.subplots()
-    ax.add_patch(sz)
-    ax.axis('equal')
-    plt.hist2d(df_test['plate_x'], df_test['plate_z'], bins = 30, cmap = 'Reds')
-    plt.colorbar()
-    plt.xlim(-1.5, 1.5)
-    plt.ylim(1, 3.75)
-    plt.show()
-
-

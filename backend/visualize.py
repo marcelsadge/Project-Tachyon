@@ -1,9 +1,9 @@
 import pandas as pd
-from matplotlib import cm
 import matplotlib.patches as pt
 import matplotlib.pyplot as plt
-import matplotlib.colors as cl
+#import matplotlib.colors as cl
 import numpy as np
+#from matplotlib import cm
 from scipy.stats import gaussian_kde
 
 
