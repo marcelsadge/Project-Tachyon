@@ -9,7 +9,18 @@ class PlayerModel(object):
         self.type = type
         self.raw_player_df = self.search(player = self.player, year = self.year)
         self.cleaned_player_df = self.clean(self.raw_player_df)
-        self.time_interval = year
+        self.data = None
+
+    def __eq__(self, playermodel):
+        if self.year != playermodel.year or self.type != playermodel.type:
+            return False
+        return True
+
+    def __len__(self):
+        return len(self.cleaned_player_df)
+
+    def __deepcopy__(self):
+        return PlayerModel(self.player, self.year, self.type)
 
     def search(self, player, year):
         player_df = pb.playerid_lookup(player[0], player[1])
@@ -50,6 +61,12 @@ class PlayerModel(object):
         player_list = player.split()
         player_tup = (player_list[1], player_list[0])
         return player_tup
+
+    def set_data(self, data):
+        self.data = data
+
+    def get_data(self):
+        return self.data
 
     def get_type(self):
         return self.type

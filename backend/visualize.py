@@ -24,6 +24,7 @@ def visualize_swing_prob(tup, player_df):
     plt.xlim(-1.5, 1.5)
     plt.ylim(1, 3.75)
     plt.show()
+    return df.to_json(), player_df.to_json()
 
 def visualize_density_graph(tup, player_df):
     df = tup[2]
@@ -48,4 +49,5 @@ def visualize_density_graph(tup, player_df):
            cmap='Reds')
     plt.colorbar()
     plt.show()
+    return df.to_json(), player_df.to_json()
 
