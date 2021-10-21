@@ -1,5 +1,5 @@
 import pybaseball as pb
-import results, visualize
+#import results, visualize
 
 class PlayerModel(object):
 
@@ -79,6 +79,7 @@ class PlayerModel(object):
             return self.raw_player_df
         return self.cleaned_player_df
 
+'''
 if __name__ == "__main__":
     p = PlayerModel("Austin Riley", ["2015-09-08", "2021-09-09"], 'batter')
     visualize.visualize_density_graph(results.pitch_swing_prob(
@@ -87,4 +88,5 @@ if __name__ == "__main__":
     p = PlayerModel("Clayton Kershaw", ["2015-09-08", "2021-09-09"], 'pitcher')
     visualize.visualize_density_graph(results.pitch_swing_prob(
         p.get_player_df(True), ['CU']), p.get_player_df(True))
+'''
 
