@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Tachyon Baseball</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+    <a href="/login/" class="w3-bar-item w3-button w3-padding-large">LOGIN</a>
+    </div>
+  </div>
+</div>
+<div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="zero">
+</div>
+<div class="columns">
+    <div class="column is-one-third"></div>
+    <div class="column">
+        <section class="hero is-light">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                    Register Account
+                </h1>
+                <h2 class="subtitle">
+                    Enter your credentials
+                </h2>
+              </div>
+            </div>
+        </section>
+        </br>
+        <div class="box">
+            <form method="POST" action="/request_register/">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                      <input name="name" class="input" placeholder="John Smith">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control has-icons-left has-icons-right">
+                      <input name="username" class="input" placeholder="Username">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                      <input name="password" class="input" type="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="buttons has-addons is-centered">
+                    <input type="submit" value="Register" class="button is-primary" a href= "/"></input>
+                    <a href="/"class="button">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="column is-one-third"></div>
+</div>

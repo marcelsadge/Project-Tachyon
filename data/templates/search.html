@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Tachyon Baseball</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="/home/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+      <a href="/search/" class="w3-bar-item w3-button w3-padding-large">SEARCH</a>
+      <a href="{% url 'profile' request.user.username %}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">{{ request.user.username }}</a>
+      <a href="/confirm_logout/" class="w3-bar-item w3-button w3-padding-large">LOGOUT</a>
+    </div>
+  </div>
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="zero">
+  </div>
+  <div class="columns">
+    <div class="column is-one-third"></div>
+    <div class="column">
+        <section class="hero is-light">
+            <div class="hero-body">
+              <div class="container">
+                <h1 class="title">
+                    Player Search
+                </h1>
+                <h2 class="subtitle">
+                    Enter player information (all fields must be filled)
+                </h2>
+              </div>
+            </div>
+        </section>
+        </br>
+        <form method="POST" action="/create_query/">
+            {% csrf_token %}
+            <div class="box">
+                <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control">
+                      <input name="first_name" class="input" type="text" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control">
+                    <input name="last_name" class="input" type="text" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Start Date</label>
+                    <div class="control">
+                      <input name="date1" class="input" type="text" placeholder="YYYY-MM-DD">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">End Date</label>
+                    <div class="control">
+                      <input name="date2" class="input" type="text" placeholder="YYYY-MM-DD">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Type</label>
+                    <div class="control">
+                      <input name="type" class="input" type="text" placeholder="Pitcher or Batter">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Pitches</label>
+                    <h2 class="subtitle">
+                        FF - Fastball, FC - Cutter, CH - Changeup, SL - Slider, SI - Sinker, CU - Curveball
+                    </h2>
+                    <h2 class="subtitle">
+                        Enter in the form: One pitch: FF, Two pitches: FF FC, Three pitches: FF FC CH
+                    </h2>
+                    <div class="control">
+                      <input name="pitches" class="input" type="text" placeholder="Pitches">
+                    </div>
+                </div>
+                <div class="buttons has-addons is-centered">
+                    <input type="submit" value="Search" class="button is-primary"></input>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="column is-one-third"></div>
+  </div>
+</div>
