@@ -29,8 +29,6 @@ def request_login(request):
     username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(username=username, password=password)
-    if not username or not password:
-        return redirect("/login")
     if user is None:
         return redirect("/login")
     else:
@@ -58,8 +56,6 @@ def request_register(request):
     username = request.POST["username"]
     password = request.POST["password"]
     name = request.POST["name"]
-    if not username or not password or not name:
-        return redirect('/register')
     if not Account.objects.filter(user__username=username):
         user = User.objects.create(username=username, password=password)
         user.set_password(password)

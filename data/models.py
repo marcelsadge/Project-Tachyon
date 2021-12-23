@@ -2,8 +2,6 @@ from django import template
 from django.db import models
 from django.contrib.auth.models import User
 
-from models.playermodel import PlayerModel
-
 domain = template.Library()
 
 # Account model for user accounts
