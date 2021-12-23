@@ -36,7 +36,7 @@ def request_login(request):
     else:
         log(request, user)
         Images.objects.all().delete()
-        return redirect("/")
+        return redirect("/home/")
 
 # Confirms if the user wants to logout
 @login_required
@@ -67,7 +67,7 @@ def request_register(request):
         Account.objects.create(user=user, name=name)
         log(request, user)
         Images.objects.all().delete()
-        return redirect('/')
+        return redirect('/home')
     else:
         return redirect('/register')
 
