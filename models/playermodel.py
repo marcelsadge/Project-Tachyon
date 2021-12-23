@@ -51,10 +51,12 @@ class PlayerModel(object):
     # Cleans the dataframe for pitches swung at or called for strikes for 
     # batters and pitchers respectively
     def clean(self, df):
+        # drop null columns
         df = df.dropna(axis= 'columns', how = 'all')
         df = df.loc[(df['plate_x'].notnull()) & (df['plate_z'].notnull())]
         df = df.loc[(df['pitch_type'].notnull()) & (df['release_speed'].notnull())]
         df['swing'] = 0
+        # setting swing = 1 to batters who swung at the pitch from pitchers or pitchers who threw a strike to a batter
         if self.get_type() == 'batter':
             df.loc[df['description'].isin(['hit_into_play', 'swinging_strike', 'swinging_strike_blocked', 
                 'foul', 'hit_into_play_no_out', 'foul_tip', 'hit_into_play_score', 'foul_bunt', 

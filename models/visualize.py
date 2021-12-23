@@ -7,6 +7,7 @@ from scipy.stats import gaussian_kde
 from io import BytesIO
 import base64
 
+# This method is a test to run to see if results came out fine
 def visualize_swing_prob(tup, player_df):
     df = tup[2]
     visualize_cols = df.drop('swing', axis = 1).columns
@@ -25,6 +26,9 @@ def visualize_swing_prob(tup, player_df):
     plt.ylim(1, 3.75)
     #plt.show()
 
+# Takes the results of the training and creates a gaussian heat map using
+# the scipy module. It plots all the predicts into a strike zone to 
+# predict where a batter will swing or if a pitcher will generate strikes
 def visualize_density_graph(tup, player_df):
     plt.switch_backend('AGG')
     df = tup[2]
@@ -48,6 +52,7 @@ def visualize_density_graph(tup, player_df):
            extent=[-1.5, 1.5, 1, 3.75],
            cmap='Reds')
     plt.colorbar()
+    # Convert matplotlib graph into binary so it can be easily represented in html
     imgdata = BytesIO()
     fig.savefig(imgdata, format = 'png')
     imgdata.seek(0)

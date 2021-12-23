@@ -98,16 +98,23 @@ def create_query(request):
         date2 = request.POST['date2']
         type = request.POST['type']
         pitches = request.POST['pitches']
+
+        # Cleaning the inputs 
         pname = first_name + " " + last_name
         type = type.lower()
         l = copy.copy(pitches)
         pitches = pitches.split(" ")
         if not first_name or not last_name or not date1 or not date2 or not type or not pitches:
             return redirect('/search')
+
+        # Creating our playermodel
         p = PlayerModel(player = pname, year = (date1, date2), type = type)
+        if p.__len__() == 0:
+            return redirect('/search')
         graph = None
         fig, graph = visualize_density_graph(pitch_swing_prob(p.get_player_df(True), pitches), p.get_player_df(True))
         
+        # Creating image model to hold our image for future reference
         letters = string.ascii_lowercase
         file = ''.join(random.choice(letters) for i in range(10)) + '.png'
         fig.savefig('static/'+ file)
