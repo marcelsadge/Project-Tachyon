@@ -1,4 +1,4 @@
-# Project-Tachyon
+# MLB Swing Analyzer
 
 MLB swing and pitch prediction built using Django. The only routes needed are below.
 
